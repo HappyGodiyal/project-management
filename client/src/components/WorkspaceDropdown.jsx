@@ -25,7 +25,7 @@ function WorkspaceDropdown() {
         setActive({ organization: organizationId })
         dispatch(setCurrentWorkspace(organizationId))
         setIsOpen(false);
-        navigate('/')
+        // navigate('/')
     }
 
     // Close dropdown on outside click
