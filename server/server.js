@@ -4,6 +4,11 @@ import 'dotenv/config'
 import { clerkMiddleware } from '@clerk/express'
 import { serve } from "inngest/express";
 import { inngest, functions } from "./inngest/index.js"
+import workspaceRouter from './routes/workspaceRoute.js';
+import { protect } from './middleware/authMiddleware.js';
+import projectRouter from './routes/projectRoute.js';
+import taskRouter from './routes/taskRoute.js';
+import commentRouter from './routes/commentRoute.js';
 
 const app = express();
 
@@ -18,5 +23,12 @@ app.get('/', (req, res) => {
 })
 
 app.use("/api/inngest", serve({ client: inngest, functions }));
+
+// Routes
+
+app.use('/api/workspaces', protect, workspaceRouter)
+app.use('/api/projects', protect, projectRouter)
+app.use('/api/tasks', protect, taskRouter)
+app.use('/api/comments', protect, commentRouter)
 
 app.listen(PORT, () => console.log(`server is running on port: ${PORT}`))
